@@ -1,0 +1,2878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnSync - Smart Video Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Modern UI Variables */
+        :root {
+            /* Colors - Modern Theme */
+            --color-bg: #ffffff;
+            --color-bg-alt: #f8fafc;
+            --color-card: #ffffff;
+            --color-card-hover: #f1f5f9;
+            --color-border: rgba(226, 232, 240, 0.8);
+            --color-text: #0f172a;
+            --color-text-secondary: #334155;
+            --color-text-tertiary: #64748b;
+            --color-primary: #0d9488; /* Teal */
+            --color-primary-hover: #0f766e;
+            --color-primary-light: rgba(13, 148, 136, 0.1);
+            --color-secondary: #2563eb; /* Blue */
+            --color-secondary-hover: #1d4ed8;
+            --color-secondary-light: rgba(37, 99, 235, 0.1);
+            --color-accent: #8b5cf6; /* Purple */
+            --color-accent-hover: #7c3aed;
+            --color-accent-light: rgba(139, 92, 246, 0.1);
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #0d9488, #0891b2);
+            --gradient-secondary: linear-gradient(135deg, #2563eb, #4f46e5);
+            --gradient-accent: linear-gradient(135deg, #8b5cf6, #a855f7);
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-glow-primary: 0 0 15px rgba(13, 148, 136, 0.4);
+            --shadow-glow-secondary: 0 0 15px rgba(37, 99, 235, 0.4);
+            --shadow-glow-accent: 0 0 15px rgba(139, 92, 246, 0.4);
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-24: 6rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-full: 9999px;
+            
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            
+            /* Animation */
+            --animation-speed-slow: 20s;
+            --animation-speed-normal: 10s;
+            --animation-speed-fast: 5s;
+            
+            /* Parallax */
+            --parallax-perspective: 1000px;
+        }
+        
+        /* Reset & Base Styles */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            height: 100%;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            perspective: var(--parallax-perspective);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--color-text);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color var(--transition-fast);
+        }
+        
+        button {
+            font-family: var(--font-sans);
+            cursor: pointer;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+            position: relative;
+            z-index: 1;
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 var(--space-3);
+            }
+        }
+        
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        main {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+        
+        section {
+            padding: var(--space-16) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @media (max-width: 768px) {
+            section {
+                padding: var(--space-12) 0;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            section {
+                padding: var(--space-8) 0;
+            }
+        }
+        
+        /* Typography */
+        .gradient-text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .accent-gradient-text {
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .purple-gradient-text {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .text-secondary {
+            color: var(--color-text-secondary);
+        }
+        
+        .text-tertiary {
+            color: var(--color-text-tertiary);
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Background Patterns */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+            background-image: 
+                radial-gradient(var(--color-primary) 2px, transparent 2px),
+                radial-gradient(var(--color-primary) 2px, transparent 2px);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            pointer-events: none;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid var(--color-border);
+            transition: all var(--transition-normal);
+        }
+        
+        .header.scrolled {
+            box-shadow: var(--shadow-md);
+            transform: translateY(0);
+        }
+        
+        .header.hidden {
+            transform: translateY(-100%);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 4.5rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 1.5rem;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+            color: var(--color-text);
+        }
+        
+        .logo-icon {
+            color: var(--color-primary);
+            font-size: 1.75rem;
+            animation: pulse-icon 3s infinite ease-in-out;
+        }
+        
+        @keyframes pulse-icon {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+        
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: var(--space-6);
+        }
+        
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: var(--space-2);
+            color: var(--color-text-secondary);
+            font-weight: 500;
+            transition: color var(--transition-fast);
+        }
+        
+        .nav-link:hover {
+            color: var(--color-text);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width var(--transition-normal);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-text);
+            font-size: 1.5rem;
+            z-index: 60;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 40;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: var(--space-8);
+            transform: translateX(100%);
+            transition: transform var(--transition-normal);
+            will-change: transform;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+        }
+        
+        .mobile-nav-link {
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: var(--space-3) 0;
+            border-bottom: 1px solid var(--color-border);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all var(--transition-normal);
+            color: var(--color-text);
+        }
+        
+        .mobile-menu.active .mobile-nav-link {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .mobile-menu.active .mobile-nav-link:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+        
+        .mobile-menu.active .mobile-nav-link:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+        
+        .mobile-menu.active .mobile-nav-link:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+        
+        .mobile-menu.active .mobile-nav-link:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            border: none;
+            font-size: 0.875rem;
+            gap: var(--space-2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: transform var(--transition-fast);
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            transform: translateX(0);
+        }
+        
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: var(--shadow-glow-primary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: var(--shadow-glow-secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-accent {
+            background: var(--gradient-accent);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .btn-accent:hover {
+            box-shadow: var(--shadow-glow-accent);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .btn-outline::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--color-primary-light);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition-normal);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+        
+        .btn-outline:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .btn-lg {
+            padding: var(--space-4) var(--space-8);
+            font-size: 1rem;
+            border-radius: var(--radius-lg);
+        }
+        
+        @media (max-width: 640px) {
+            .btn-lg {
+                padding: var(--space-3) var(--space-6);
+                font-size: 0.875rem;
+            }
+        }
+        
+        .btn-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0;
+            border-radius: var(--radius-full);
+            font-size: 1.25rem;
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding-top: 8rem;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background-color: var(--color-bg-alt);
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .hero-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.1;
+            will-change: transform;
+        }
+        
+        .hero-shape-1 {
+            background: var(--color-primary);
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            right: -100px;
+            animation: float-slow 15s infinite alternate ease-in-out;
+        }
+        
+        .hero-shape-2 {
+            background: var(--color-secondary);
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            left: -200px;
+            animation: float-slow 20s infinite alternate-reverse ease-in-out;
+        }
+        
+        .hero-shape-3 {
+            background: var(--color-accent);
+            width: 200px;
+            height: 200px;
+            top: 40%;
+            right: 20%;
+            animation: float-slow 12s infinite alternate ease-in-out;
+        }
+        
+        @keyframes float-slow {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+        
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: var(--space-6);
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--color-primary-light);
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            color: var(--color-primary);
+            font-weight: 500;
+            width: fit-content;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(13, 148, 136, 0.2);
+            animation: badge-glow 3s infinite alternate ease-in-out;
+        }
+        
+        @keyframes badge-glow {
+            0% {
+                box-shadow: 0 0 10px rgba(13, 148, 136, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(13, 148, 136, 0.4);
+            }
+        }
+        
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: badge-shine 3s infinite;
+        }
+        
+        @keyframes badge-shine {
+            0% {
+                left: -100%;
+            }
+            20%, 100% {
+                left: 100%;
+            }
+        }
+        
+        .badge i {
+            margin-right: var(--space-2);
+        }
+        
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        .hero-description {
+            font-size: clamp(1.125rem, 2vw, 1.5rem);
+            color: var(--color-text-secondary);
+            max-width: 700px;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            margin-top: var(--space-6);
+            justify-content: center;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        @media (max-width: 640px) {
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+            }
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            z-index: 0;
+            will-change: transform;
+        }
+        
+        .floating-icon {
+            font-size: 2rem;
+            color: var(--color-text-tertiary);
+            opacity: 0.1;
+            filter: blur(1px);
+        }
+        
+        .float-1 {
+            top: 20%;
+            left: 10%;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .float-2 {
+            top: 30%;
+            right: 15%;
+            animation: float 15s infinite ease-in-out reverse;
+        }
+        
+        .float-3 {
+            bottom: 20%;
+            left: 20%;
+            animation: float 18s infinite ease-in-out 2s;
+        }
+        
+        .float-4 {
+            bottom: 30%;
+            right: 10%;
+            animation: float 25s infinite ease-in-out 1s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(20px, 10px) rotate(5deg);
+            }
+            50% {
+                transform: translate(0, 20px) rotate(0deg);
+            }
+            75% {
+                transform: translate(-20px, 10px) rotate(-5deg);
+            }
+        }
+        
+        /* Features Section */
+        .features-section {
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-16);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .section-header {
+                margin-bottom: var(--space-12);
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .section-header {
+                margin-bottom: var(--space-8);
+            }
+        }
+        
+        .section-title {
+            font-size: clamp(2rem, 3vw, 3rem);
+            margin-bottom: var(--space-4);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-description {
+            color: var(--color-text-secondary);
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-8);
+            position: relative;
+            z-index: 1;
+        }
+        
+        @media (max-width: 640px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+        }
+        
+        /* Modern Card */
+        .modern-card {
+            position: relative;
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) translateZ(0);
+            will-change: transform, box-shadow;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .modern-card:hover {
+            transform: perspective(1000px) translateZ(10px) translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--color-primary);
+        }
+        
+        .modern-card-content {
+            position: relative;
+            padding: var(--space-8);
+            z-index: 1;
+        }
+        
+        @media (max-width: 640px) {
+            .modern-card-content {
+                padding: var(--space-6);
+            }
+        }
+        
+        /* Feature Card */
+        .feature-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .feature-icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 4rem;
+            height: 4rem;
+            border-radius: var(--radius-lg);
+            background: var(--gradient-primary);
+            margin-bottom: var(--space-6);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-icon-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: icon-shine 3s infinite;
+        }
+        
+        @keyframes icon-shine {
+            0% {
+                transform: rotate(45deg) translateX(-100%);
+            }
+            20%, 100% {
+                transform: rotate(45deg) translateX(100%);
+            }
+        }
+        
+        .feature-icon {
+            font-size: 1.75rem;
+            color: white;
+            position: relative;
+            z-index: 1;
+            animation: pulse-subtle 3s infinite alternate ease-in-out;
+        }
+        
+        @keyframes pulse-subtle {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-3);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .feature-description {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+            flex-grow: 1;
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            position: relative;
+            transform-style: preserve-3d;
+            background-color: var(--color-bg-alt);
+        }
+        
+        .steps-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step {
+            display: flex;
+            gap: var(--space-6);
+            margin-bottom: var(--space-12);
+            position: relative;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .step.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        @media (max-width: 640px) {
+            .step {
+                flex-direction: column;
+                gap: var(--space-4);
+                margin-bottom: var(--space-8);
+            }
+        }
+        
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step-number-wrapper {
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: var(--radius-lg);
+            background: var(--gradient-secondary);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .step-number::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: step-shine 3s infinite;
+        }
+        
+        @keyframes step-shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            20%, 100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-2);
+        }
+        
+        .step-description {
+            color: var(--color-text-secondary);
+        }
+        
+        /* Connect steps with line */
+        .steps-container {
+            position: relative;
+        }
+        
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 1.75rem;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--color-secondary), var(--color-primary));
+            z-index: 0;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 1s ease;
+        }
+        
+        .steps-container.visible::before {
+            transform: scaleY(1);
+        }
+        
+        @media (max-width: 640px) {
+            .steps-container::before {
+                display: none;
+            }
+        }
+        
+        /* Form Section */
+        .form-section {
+            position: relative;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .form-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .form-card {
+            padding: var(--space-8);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0deg);
+            transition: transform 0.6s ease;
+        }
+        
+        .form-card:hover {
+            transform: perspective(1000px) rotateX(2deg);
+        }
+        
+        @media (max-width: 640px) {
+            .form-card {
+                padding: var(--space-6);
+            }
+        }
+        
+        .youtube-form {
+            width: 100%;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+        
+        @media (min-width: 768px) {
+            .form-group {
+                flex-direction: row;
+            }
+        }
+        
+        .input-with-icon {
+            position: relative;
+            flex: 1;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-tertiary);
+            font-size: 1.25rem;
+            animation: pulse-subtle 3s infinite alternate ease-in-out;
+        }
+        
+        input[type="url"] {
+            width: 100%;
+            padding: var(--space-4) var(--space-4) var(--space-4) var(--space-12);
+            background-color: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            color: var(--color-text);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+            font-family: var(--font-sans);
+        }
+        
+        input[type="url"]::placeholder {
+            color: var(--color-text-tertiary);
+        }
+        
+        input[type="url"]:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+        
+        .form-example {
+            font-size: 0.875rem;
+            color: var(--color-text-tertiary);
+            margin-top: var(--space-2);
+        }
+        
+        /* Results Page */
+        .results-page {
+            padding-top: 6rem;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--color-text-secondary);
+            font-weight: 500;
+            margin-bottom: var(--space-6);
+            transition: color var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .back-link:hover {
+            color: var(--color-primary);
+        }
+        
+        .back-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition-normal);
+        }
+        
+        .back-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .video-player-container {
+            position: relative;
+            margin-bottom: var(--space-8);
+            transform: translateY(30px);
+            opacity: 0;
+            animation: fade-in-up 0.6s forwards 0.3s;
+        }
+        
+        @keyframes fade-in-up {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .video-player-glow {
+            position: absolute;
+            inset: -4px;
+            border-radius: var(--radius-xl);
+            background: var(--gradient-primary);
+            opacity: 0.5;
+            filter: blur(15px);
+            animation: glow-pulse 3s infinite alternate ease-in-out;
+        }
+        
+        @keyframes glow-pulse {
+            0% {
+                opacity: 0.3;
+                filter: blur(15px);
+            }
+            100% {
+                opacity: 0.6;
+                filter: blur(20px);
+            }
+        }
+        
+        .video-player {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            background-color: var(--color-bg-alt);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0deg);
+            transition: transform 0.6s ease;
+            will-change: transform;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .video-player:hover {
+            transform: perspective(1000px) rotateX(2deg);
+        }
+        
+        .video-player iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Tabs */
+        .tabs-container {
+            margin-bottom: var(--space-8);
+            transform: translateY(30px);
+            opacity: 0;
+            animation: fade-in-up 0.6s forwards 0.6s;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+            margin-bottom: var(--space-6);
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: var(--space-2);
+        }
+        
+        .tab-button {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-4);
+            background-color: transparent;
+            border: none;
+            border-radius: var(--radius-md);
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tab-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-primary-light);
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+            z-index: -1;
+        }
+        
+        .tab-button:hover::before {
+            opacity: 1;
+        }
+        
+        .tab-button:hover {
+            color: var(--color-text);
+        }
+        
+        .tab-button.active {
+            color: var(--color-primary);
+            background-color: var(--color-primary-light);
+        }
+        
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-primary);
+        }
+        
+        .tab-content {
+            position: relative;
+        }
+        
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.3s ease forwards;
+        }
+        
+        .tab-pane.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Content Cards */
+        .content-card {
+            position: relative;
+            background-color: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: var(--space-8);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) translateZ(0);
+            transition: transform 0.6s ease, box-shadow 0.6s ease;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .content-card:hover {
+            transform: perspective(1000px) translateZ(10px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .card-header {
+            position: relative;
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--color-border);
+            background-color: var(--color-bg-alt);
+        }
+        
+        @media (max-width: 640px) {
+            .card-header {
+                padding: var(--space-4);
+            }
+        }
+        
+        .card-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.25rem;
+            margin-bottom: var(--space-1);
+        }
+        
+        @media (max-width: 480px) {
+            .card-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-2);
+            }
+        }
+        
+        .card-description {
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .card-body {
+            position: relative;
+            padding: var(--space-6);
+        }
+        
+        @media (max-width: 640px) {
+            .card-body {
+                padding: var(--space-4);
+            }
+        }
+        
+        .card-footer {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-4) var(--space-6);
+            border-top: 1px solid var(--color-border);
+            background-color: var(--color-bg-alt);
+        }
+        
+        @media (max-width: 640px) {
+            .card-footer {
+                padding: var(--space-3) var(--space-4);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .card-footer {
+                flex-direction: column;
+                gap: var(--space-3);
+            }
+            
+            .card-footer .btn {
+                width: 100%;
+            }
+        }
+        
+        /* Summary Tab */
+        .summary-paragraph {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-4);
+            line-height: 1.7;
+            position: relative;
+            padding-left: var(--space-4);
+            border-left: 2px solid var(--color-primary-light);
+        }
+        
+        /* Flashcards */
+        .btn-reset {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+            padding: var(--space-1) var(--space-2);
+            background-color: transparent;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            color: var(--color-text-secondary);
+            font-size: 0.75rem;
+            transition: all var(--transition-fast);
+        }
+        
+        .btn-reset:hover {
+            background-color: var(--color-bg-alt);
+            color: var(--color-text);
+            border-color: var(--color-primary);
+        }
+        
+        .flashcard {
+            perspective: 1000px;
+            min-height: 220px;
+            margin: var(--space-6) 0;
+            transform-style: preserve-3d;
+        }
+        
+        @media (max-width: 480px) {
+            .flashcard {
+                min-height: 180px;
+            }
+        }
+        
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            min-height: 220px;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-8);
+            border-radius: var(--radius-lg);
+            font-size: 1.125rem;
+            font-weight: 500;
+            line-height: 1.6;
+            box-shadow: var(--shadow-md);
+        }
+        
+        @media (max-width: 480px) {
+            .flashcard-front, .flashcard-back {
+                min-height: 180px;
+                padding: var(--space-4);
+                font-size: 1rem;
+            }
+        }
+        
+        .flashcard-front {
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-bg-alt));
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+        }
+        
+        .flashcard-back {
+            background: linear-gradient(135deg, var(--color-secondary-light), var(--color-bg-alt));
+            transform: rotateY(180deg);
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+        }
+        
+        /* MCQs */
+        .mcq-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-4);
+        }
+        
+        .mcq-stats span:last-child {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+        
+        .mcq-container {
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            background-color: var(--color-bg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        @media (max-width: 480px) {
+            .mcq-container {
+                padding: var(--space-4);
+            }
+        }
+        
+        #question-text {
+            font-size: 1.125rem;
+            margin-bottom: var(--space-6);
+            line-height: 1.5;
+            color: var(--color-text);
+        }
+        
+        @media (max-width: 480px) {
+            #question-text {
+                font-size: 1rem;
+                margin-bottom: var(--space-4);
+            }
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
+            border: 1px solid var(--color-border);
+            background-color: var(--color-bg);
+            transform: translateZ(0);
+            will-change: transform, background-color;
+        }
+        
+        @media (max-width: 480px) {
+            .option {
+                padding: var(--space-3);
+                gap: var(--space-2);
+            }
+        }
+        
+        .option:hover {
+            background-color: var(--color-bg-alt);
+            border-color: var(--color-border);
+            transform: translateY(-2px) scale(1.01);
+        }
+        
+        .option input[type="radio"] {
+            appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid var(--color-border);
+            border-radius: 50%;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        @media (max-width: 480px) {
+            .option input[type="radio"] {
+                width: 1rem;
+                height: 1rem;
+            }
+        }
+        
+        .option input[type="radio"]::before {
+            content: "";
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform var(--transition-fast);
+            background-color: var(--color-primary);
+        }
+        
+        @media (max-width: 480px) {
+            .option input[type="radio"]::before {
+                width: 0.6rem;
+                height: 0.6rem;
+            }
+        }
+        
+        .option input[type="radio"]:checked {
+            border-color: var(--color-primary);
+        }
+        
+        .option input[type="radio"]:checked::before {
+            transform: scale(1);
+        }
+        
+        .option label {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        @media (max-width: 480px) {
+            .option label {
+                font-size: 0.875rem;
+            }
+        }
+        
+        .option.correct {
+            border-color: var(--color-success);
+            background-color: rgba(16, 185, 129, 0.1);
+            animation: pulse-correct 1s;
+        }
+        
+        @keyframes pulse-correct {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+        
+        .option.correct label {
+            color: var(--color-success);
+            font-weight: 600;
+        }
+        
+        .option.correct::after {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--color-success);
+        }
+        
+        .option.incorrect {
+            border-color: var(--color-error);
+            background-color: rgba(239, 68, 68, 0.1);
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            20%, 60% {
+                transform: translateX(-5px);
+            }
+            40%, 80% {
+                transform: translateX(5px);
+            }
+        }
+        
+        .option.incorrect label {
+            color: var(--color-error);
+            font-weight: 600;
+        }
+        
+        .option.incorrect::after {
+            content: "\f00d";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--color-error);
+        }
+        
+        /* Bullet Points */
+        .bullet-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .bullet-item {
+            position: relative;
+            padding-left: var(--space-6);
+            margin-bottom: var(--space-6);
+            color: var(--color-text-secondary);
+            transition: transform var(--transition-normal);
+        }
+        
+        .bullet-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .bullet-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.6rem;
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background-color: var(--color-primary);
+            box-shadow: 0 0 10px var(--color-primary);
+        }
+        
+        .bullet-item strong {
+            color: var(--color-text);
+            font-weight: 600;
+            display: block;
+            margin-bottom: var(--space-2);
+            font-size: 1.125rem;
+        }
+        
+        .sub-bullet-list {
+            list-style-type: none;
+            margin-top: var(--space-3);
+        }
+        
+        .sub-bullet-list li {
+            position: relative;
+            padding-left: var(--space-4);
+            margin-bottom: var(--space-2);
+            color: var(--color-text-tertiary);
+            transition: transform var(--transition-normal);
+        }
+        
+        .sub-bullet-list li:hover {
+            transform: translateX(3px);
+            color: var(--color-text-secondary);
+        }
+        
+        .sub-bullet-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.6rem;
+            width: 0.35rem;
+            height: 0.35rem;
+            border-radius: 50%;
+            background-color: var(--color-secondary);
+        }
+        
+        @media (max-width: 480px) {
+            .bullet-item {
+                padding-left: var(--space-4);
+                margin-bottom: var(--space-4);
+            }
+            
+            .bullet-item::before {
+                top: 0.5rem;
+                width: 0.4rem;
+                height: 0.4rem;
+            }
+            
+            .sub-bullet-list li {
+                padding-left: var(--space-3);
+            }
+            
+            .sub-bullet-list li::before {
+                top: 0.5rem;
+                width: 0.3rem;
+                height: 0.3rem;
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            width: 100%;
+            border-top: 1px solid var(--color-border);
+            background-color: var(--color-bg-alt);
+            padding: var(--space-8) 0;
+            margin-top: var(--space-16);
+            position: relative;
+            z-index: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .footer {
+                padding: var(--space-6) 0;
+                margin-top: var(--space-12);
+            }
+        }
+        
+        .footer .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-6);
+        }
+        
+        @media (min-width: 768px) {
+            .footer .container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+        
+        .copyright {
+            font-size: 0.875rem;
+            color: var(--color-text-tertiary);
+            text-align: center;
+        }
+        
+        @media (min-width: 768px) {
+            .copyright {
+                text-align: left;
+            }
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: var(--space-6);
+        }
+        
+        .footer-link {
+            font-size: 0.875rem;
+            color: var(--color-text-tertiary);
+            transition: color var(--transition-fast);
+            position: relative;
+        }
+        
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition-normal);
+        }
+        
+        .footer-link:hover {
+            color: var(--color-primary);
+        }
+        
+        .footer-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        /* Utilities */
+        .hidden {
+            display: none;
+        }
+        
+        .flex {
+            display: flex;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .justify-center {
+            justify-content: center;
+        }
+        
+        .gap-2 {
+            gap: var(--space-2);
+        }
+        
+        .mt-4 {
+            margin-top: var(--space-4);
+        }
+        
+        .mb-4 {
+            margin-bottom: var(--space-4);
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Floating Elements Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Reveal Animation */
+        @keyframes reveal {
+            0% {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .reveal.active {
+            animation: reveal 0.6s forwards;
+        }
+        
+        /* Parallax Effect */
+        .parallax {
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            will-change: transform;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Pattern -->
+    <div class="bg-pattern"></div>
+    
+    <!-- Home Page -->
+    <div id="home-page">
+        <div class="app-container">
+            <header class="header" id="header">
+                <div class="container header-content">
+                    <div class="logo">
+                        <i class="fa-solid fa-brain logo-icon"></i>
+                        <span>NeuroTube AI
+                        </span>
+                    </div>
+                    <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    
+                </div>
+            </header>
+            
+            <div class="mobile-menu" id="mobile-menu">
+                <nav class="mobile-nav">
+                    <a href="#" class="mobile-nav-link">Home</a>
+                    <a href="#" class="mobile-nav-link">Features</a>
+                    <a href="#" class="mobile-nav-link">Pricing</a>
+                    <button class="btn btn-primary">Sign  class="mobile-nav-link">Pricing</a>
+                    <button class="btn btn-primary">Sign In</button>
+                </nav>
+            </div>
+
+            <main>
+                <section class="hero">
+                    <div class="hero-bg">
+                        <div class="hero-shape hero-shape-1"></div>
+                        <div class="hero-shape hero-shape-2"></div>
+                        <div class="hero-shape hero-shape-3"></div>
+                    </div>
+                    
+                    <div class="floating-element float-1">
+                        <i class="fa-solid fa-lightbulb floating-icon"></i>
+                    </div>
+                    <div class="floating-element float-2">
+                        <i class="fa-solid fa-graduation-cap floating-icon"></i>
+                    </div>
+                    <div class="floating-element float-3">
+                        <i class="fa-solid fa-book floating-icon"></i>
+                    </div>
+                    <div class="floating-element float-4">
+                        <i class="fa-solid fa-chart-simple floating-icon"></i>
+                    </div>
+                    
+                    <div class="container">
+                        <div class="hero-content parallax">
+                            <div class="badge">
+                                <i class="fa-solid fa-sparkles"></i>
+                                <span>🤖 AI-Powered Learning</span>
+                            </div>
+                            <h1 class="hero-title">
+                                Transform <span class="gradient-text" data-text="YouTube Videos">YouTube Videos</span> Into Smart Study Materials
+                            </h1>
+                            <p class="hero-description">
+                                Our AI analyzes videos and instantly creates summaries, flashcards, quizzes, and notes to help you learn faster and retain more information.
+                            </p>
+                            <div class="hero-buttons">
+                                <a href="#try-it-now" class="btn btn-primary btn-lg">
+                                    Try it now <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                                <a href="#how-it-works" class="btn btn-outline btn-lg">
+                                    How it works
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="features-section" id="features">
+                    <div class="container">
+                        <div class="section-header reveal">
+                            <h2 class="section-title">
+                                <span class="gradient-text" data-text="AI-Generated">AI-Generated</span> Learning Materials
+                            </h2>
+                            <p class="section-description">
+                                Our advanced AI creates comprehensive learning materials from any YouTube video, helping you study more effectively.
+                            </p>
+                        </div>
+                        
+                        <div class="features-grid">
+                            <div class="modern-card feature-card" data-delay="0">
+                                <div class="modern-card-content">
+                                    <div class="feature-icon-wrapper">
+                                        <i class="fa-solid fa-file-lines feature-icon"></i>
+                                    </div>
+                                    <h3 class="feature-title">Smart Summaries</h3>
+                                    <p class="feature-description">
+                                        Concise summaries that capture the key points from the video, helping you grasp the main concepts quickly without watching the entire video.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="modern-card feature-card" data-delay="200">
+                                <div class="modern-card-content">
+                                    <div class="feature-icon-wrapper">
+                                        <i class="fa-solid fa-book-open feature-icon"></i>
+                                    </div>
+                                    <h3 class="feature-title">Interactive Flashcards</h3>
+                                    <p class="feature-description">
+                                        Study with interactive flashcards generated from the video content, perfect for spaced repetition learning and quick knowledge checks.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="modern-card feature-card" data-delay="400">
+                                <div class="modern-card-content">
+                                    <div class="feature-icon-wrapper">
+                                        <i class="fa-solid fa-list-check feature-icon"></i>
+                                    </div>
+                                    <h3 class="feature-title">Practice Quizzes</h3>
+                                    <p class="feature-description">
+                                        Test your understanding with multiple choice questions that reinforce learning through active recall and help identify knowledge gaps.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="modern-card feature-card" data-delay="600">
+                                <div class="modern-card-content">
+                                    <div class="feature-icon-wrapper">
+                                        <i class="fa-solid fa-list feature-icon"></i>
+                                    </div>
+                                    <h3 class="feature-title">Structured Notes</h3>
+                                    <p class="feature-description">
+                                        Get organized bullet points highlighting important concepts for quick reference and review, making complex topics easier to understand.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="how-it-works" id="how-it-works">
+                    <div class="container">
+                        <div class="section-header reveal">
+                            <h2 class="section-title">
+                                How <span class="accent-gradient-text" data-text="It Works">It Works</span>
+                            </h2>
+                            <p class="section-description">
+                                Transform any YouTube video into comprehensive learning materials in just a few simple steps.
+                            </p>
+                        </div>
+                        
+                        <div class="steps-container">
+                            <div class="step" data-delay="0">
+                                <div class="step-number-wrapper">
+                                    <div class="step-number">1</div>
+                                </div>
+                                <div class="step-content">
+                                    <h3 class="step-title">Paste YouTube URL</h3>
+                                    <p class="step-description">
+                                        Simply copy and paste the URL of any YouTube video you want to learn from into our form. It works with educational content, lectures, tutorials, and more.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="step" data-delay="200">
+                                <div class="step-number-wrapper">
+                                    <div class="step-number">2</div>
+                                </div>
+                                <div class="step-content">
+                                    <h3 class="step-title">AI Processing</h3>
+                                    <p class="step-description">
+                                        Our advanced AI analyzes the video content, extracting key information, concepts, and knowledge points. The AI understands context and identifies the most important parts.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="step" data-delay="400">
+                                <div class="step-number-wrapper">
+                                    <div class="step-number">3</div>
+                                </div>
+                                <div class="step-content">
+                                    <h3 class="step-title">Get Learning Materials</h3>
+                                    <p class="step-description">
+                                        Within seconds, receive a complete set of learning materials including summaries, flashcards, quizzes, and bullet points. Save time and learn more effectively.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section" id="try-it-now">
+                    <div class="container">
+                        <div class="section-header reveal">
+                            <h2 class="section-title">
+                                <span class="purple-gradient-text" data-text="Try It Now">Try It Now</span>
+                            </h2>
+                            <p class="section-description">
+                                Enter a YouTube URL below to generate learning materials instantly
+                            </p>
+                        </div>
+                        
+                        <div class="form-container">
+                            <div class="modern-card form-card">
+                                <div class="modern-card-content">
+                                    <form id="youtube-url-form" class="youtube-form">
+                                        <div class="form-group">
+                                            <div class="input-with-icon">
+                                                <i class="fa-brands fa-youtube input-icon"></i>
+                                                <input 
+                                                    type="url" 
+                                                    id="youtube-url" 
+                                                    placeholder="https://www.youtube.com/watch?v=..." 
+                                                    required
+                                                >
+                                            </div>
+                                            <button type="submit" id="submit-btn" class="btn btn-primary btn-lg">
+                                                <span id="btn-text">Generate Materials</span>
+                                                <span id="btn-loading" class="hidden">
+                                                    <i class="fa-solid fa-spinner animate-spin"></i> Processing...
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <p class="form-example">Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ</p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-logo">
+                        <i class="fa-solid fa-brain logo-icon"></i>
+                        <span>LearnSync</span>
+                    </div>
+                    <p class="copyright">© 2025 LearnSync. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Terms</a>
+                        <a href="#" class="footer-link">Privacy</a>
+                        <a href="#" class="footer-link">Contact</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Results Page (Hidden by default) -->
+    <div id="results-page" class="hidden">
+        <div class="app-container">
+            <header class="header">
+                <div class="container header-content">
+                    <a href="#" id="back-to-home" class="back-link">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+            </header>
+
+            <main class="results-page">
+                <div class="container">
+                    <div class="video-player-container">
+                        <div class="video-player-glow"></div>
+                        <div class="video-player">
+                            <iframe id="youtube-iframe" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                    <div class="tabs-container">
+                        <div class="tabs">
+                            <button class="tab-button active" data-tab="summary">
+                                <i class="fa-solid fa-file-lines"></i> Summary
+                            </button>
+                            <button class="tab-button" data-tab="flashcards">
+                                <i class="fa-solid fa-book-open"></i> Flashcards
+                            </button>
+                            <button class="tab-button" data-tab="mcqs">
+                                <i class="fa-solid fa-list-check"></i> Quizzes
+                            </button>
+                            <button class="tab-button" data-tab="bullet-points">
+                                <i class="fa-solid fa-list"></i> Notes
+                            </button>
+                        </div>
+
+                        <div class="tab-content">
+                            <!-- Summary Tab -->
+                            <div class="tab-pane active" id="summary">
+                                <div class="content-card">
+                                    <div class="card-header">
+                                        <h2 class="card-title">Video Summary</h2>
+                                        <p class="card-description">A concise summary of the key points from the video</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="summary-paragraph">
+                                            This video explores the fundamentals of machine learning, starting with an introduction to the basic concepts and terminology. The presenter explains the difference between supervised and unsupervised learning, providing clear examples of each approach.
+                                        </p>
+                                        <p class="summary-paragraph">
+                                            The video then delves into the three main types of machine learning algorithms: classification, regression, and clustering. For each type, practical applications are discussed, such as email spam detection for classification, house price prediction for regression, and customer segmentation for clustering.
+                                        </p>
+                                        <p class="summary-paragraph">
+                                            In the second half, the presenter covers the machine learning workflow, from data collection and preprocessing to model training, evaluation, and deployment. Special emphasis is placed on the importance of feature engineering and how it can significantly impact model performance.
+                                        </p>
+                                        <p class="summary-paragraph">
+                                            The video concludes with a discussion of common challenges in machine learning projects, including overfitting, underfitting, and the bias-variance tradeoff. The presenter offers practical tips for addressing these challenges and improving model accuracy.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Flashcards Tab -->
+                            <div class="tab-pane" id="flashcards">
+                                <div class="content-card">
+                                    <div class="card-header">
+                                        <h2 class="card-title">
+                                            <span id="flashcard-counter">Flashcard 1 of 5</span>
+                                            <button id="reset-flashcard" class="btn-reset">
+                                                <i class="fa-solid fa-rotate-left"></i> Reset
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="flashcard" id="flashcard">
+                                            <div class="flashcard-inner">
+                                                <div class="flashcard-front">
+                                                    <p>What is machine learning?</p>
+                                                </div>
+                                                <div class="flashcard-back">
+                                                    <p>Machine learning is a subset of artificial intelligence that enables systems to learn and improve from experience without being explicitly programmed.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button id="prev-flashcard" class="btn btn-outline" disabled>
+                                            <i class="fa-solid fa-chevron-left"></i> Previous
+                                        </button>
+                                        <button id="flip-flashcard" class="btn btn-primary">Show Answer</button>
+                                        <button id="next-flashcard" class="btn btn-outline">
+                                            Next <i class="fa-solid fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- MCQs Tab -->
+                            <div class="tab-pane" id="mcqs">
+                                <div class="content-card">
+                                    <div class="card-header">
+                                        <h2 class="card-title">Multiple Choice Questions</h2>
+                                        <p class="card-description">Test your understanding with these questions based on the video content</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mcq-stats">
+                                            <span>Question <span id="current-question">1</span> of 5</span>
+                                            <span>Score: <span id="score">0</span>/5</span>
+                                        </div>
+                                        <div class="mcq-container">
+                                            <h3 id="question-text">Which of the following is NOT a type of machine learning?</h3>
+                                            <div class="options-container" id="options-container">
+                                                <div class="option">
+                                                    <input type="radio" name="mcq" id="option0" value="0">
+                                                    <label for="option0">Supervised Learning</label>
+                                                </div>
+                                                <div class="option">
+                                                    <input type="radio" name="mcq" id="option1" value="1">
+                                                    <label for="option1">Unsupervised Learning</label>
+                                                </div>
+                                                <div class="option">
+                                                    <input type="radio" name="mcq" id="option2" value="2">
+                                                    <label for="option2">Reinforcement Learning</label>
+                                                </div>
+                                                <div class="option">
+                                                    <input type="radio" name="mcq" id="option3" value="3">
+                                                    <label for="option3">Deterministic Learning</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button id="submit-answer" class="btn btn-primary">Submit Answer</button>
+                                        <button id="next-question" class="btn btn-primary hidden">Next Question</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bullet Points Tab -->
+                            <div class="tab-pane" id="bullet-points">
+                                <div class="content-card">
+                                    <div class="card-header">
+                                        <h2 class="card-title">Notes</h2>
+                                        <p class="card-description">Key points and concepts from the video in an easy-to-read format</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="bullet-list">
+                                            <li class="bullet-item">
+                                                <strong>Introduction to Machine Learning</strong>
+                                                <ul class="sub-bullet-list">
+                                                    <li>Machine learning is a subset of artificial intelligence</li>
+                                                    <li>Enables systems to learn from data without explicit programming</li>
+                                                    <li>Applications span across industries from healthcare to finance</li>
+                                                </ul>
+                                            </li>
+                                            <li class="bullet-item">
+                                                <strong>Types of Machine Learning</strong>
+                                                <ul class="sub-bullet-list">
+                                                    <li>Supervised Learning: Uses labeled data for training</li>
+                                                    <li>Unsupervised Learning: Works with unlabeled data to find patterns</li>
+                                                    <li>Reinforcement Learning: Learning through trial and error with rewards</li>
+                                                </ul>
+                                            </li>
+                                            <li class="bullet-item">
+                                                <strong>Machine Learning Algorithms</strong>
+                                                <ul class="sub-bullet-list">
+                                                    <li>Classification: Predicts discrete categories (e.g., spam detection)</li>
+                                                    <li>Regression: Predicts continuous values (e.g., house prices)</li>
+                                                    <li>Clustering: Groups similar data points (e.g., customer segmentation)</li>
+                                                </ul>
+                                            </li>
+                                            <li class="bullet-item">
+                                                <strong>Machine Learning Workflow</strong>
+                                                <ul class="sub-bullet-list">
+                                                    <li>Data collection and preprocessing</li>
+                                                    <li>Feature engineering and selection</li>
+                                                    <li>Model training and validation</li>
+                                                    <li>Model evaluation and deployment</li>
+                                                </ul>
+                                            </li>
+                                            <li class="bullet-item">
+                                                <strong>Common Challenges</strong>
+                                                <ul class="sub-bullet-list">
+                                                    <li>Overfitting: Model performs well on training data but poorly on new data</li>
+                                                    <li>Underfitting: Model is too simple to capture underlying patterns</li>
+                                                    <li>Bias-variance tradeoff: Finding the right model complexity</li>
+                                                    <li>Data quality and quantity issues</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-logo">
+                        <i class="fa-solid fa-brain logo-icon"></i>
+                        <span>LearnSync</span>
+                    </div>
+                    <p class="copyright">© 2025 LearnSync. All rights reserved.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Create background pattern elements
+        function createBackgroundPattern() {
+            const container = document.querySelector('.bg-pattern');
+            if (!container) return;
+            
+            // The pattern is created using CSS background
+        }
+        
+        // Parallax effect
+        function handleParallax() {
+            document.addEventListener('mousemove', (e) => {
+                const parallaxElements = document.querySelectorAll('.parallax');
+                
+                parallaxElements.forEach(element => {
+                    const speed = 0.05;
+                    const x = (window.innerWidth / 2 - e.clientX) * speed;
+                    const y = (window.innerHeight / 2 - e.clientY) * speed;
+                    
+                    element.style.transform = `translateX(${x}px) translateY(${y}px)`;
+                });
+            });
+        }
+        
+        // Intersection Observer for reveal animations
+        function setupIntersectionObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.classList.contains('reveal')) {
+                            entry.target.classList.add('active');
+                        } else if (entry.target.classList.contains('feature-card')) {
+                            setTimeout(() => {
+                                entry.target.classList.add('visible');
+                            }, parseInt(entry.target.dataset.delay || 0));
+                        } else if (entry.target.classList.contains('step')) {
+                            setTimeout(() => {
+                                entry.target.classList.add('visible');
+                            }, parseInt(entry.target.dataset.delay || 0));
+                        } else if (entry.target.classList.contains('steps-container')) {
+                            entry.target.classList.add('visible');
+                        } else if (entry.target.classList.contains('form-container')) {
+                            entry.target.classList.add('visible');
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            document.querySelectorAll('.reveal, .feature-card, .step, .steps-container, .form-container').forEach(el => {
+                observer.observe(el);
+            });
+        }
+        
+        // Header scroll effect
+        function handleHeaderScroll() {
+            const header = document.getElementById('header');
+            let lastScrollTop = 0;
+            
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > 10) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                if (scrollTop > 100) {
+                    if (scrollTop > lastScrollTop) {
+                        header.classList.add('hidden');
+                    } else {
+                        header.classList.remove('hidden');
+                    }
+                }
+                
+                lastScrollTop = scrollTop;
+            });
+        }
+        
+        // Mobile menu toggle
+        function setupMobileMenu() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                const isOpen = mobileMenu.classList.contains('active');
+                mobileMenuToggle.innerHTML = isOpen ? 
+                    '<i class="fa-solid fa-xmark"></i>' : 
+                    '<i class="fa-solid fa-bars"></i>';
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mobileMenu.contains(e.target) && !mobileMenuToggle.contains(e.target) && mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                }
+            });
+        }
+        
+        // Form submission
+        function setupFormSubmission() {
+            const form = document.getElementById('youtube-url-form');
+            const urlInput = document.getElementById('youtube-url');
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnLoading = document.getElementById('btn-loading');
+            const homePage = document.getElementById('home-page');
+            const resultsPage = document.getElementById('results-page');
+            const youtubeIframe = document.getElementById('youtube-iframe');
+            const backToHomeBtn = document.getElementById('back-to-home');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const url = urlInput.value.trim();
+                
+                // Basic validation for YouTube URL
+                if (!url.includes('youtube.com/watch?v=') && !url.includes('youtu.be/')) {
+                    alert('Please enter a valid YouTube video URL');
+                    return;
+                }
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                btnText.classList.add('hidden');
+                btnLoading.classList.remove('hidden');
+                
+                // Extract video ID
+                let videoId = '';
+                if (url.includes('youtube.com/watch?v=')) {
+                    const urlObj = new URL(url);
+                    videoId = urlObj.searchParams.get('v') || '';
+                } else if (url.includes('youtu.be/')) {
+                    videoId = url.split('youtu.be/')[1].split('?')[0];
+                }
+                
+                // Simulate processing delay
+                setTimeout(() => {
+                    // Set YouTube iframe src
+                    youtubeIframe.src = `https://www.youtube.com/embed/${videoId}`;
+                    
+                    // Show results page
+                    homePage.classList.add('hidden');
+                    resultsPage.classList.remove('hidden');
+                    
+                    // Reset form
+                    submitBtn.disabled = false;
+                    btnText.classList.remove('hidden');
+                    btnLoading.classList.add('hidden');
+                    
+                    // Initialize tabs
+                    initTabs();
+                    
+                    // Initialize flashcards
+                    initFlashcards();
+                    
+                    // Initialize MCQs
+                    initMCQs();
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                }, 2000);
+            });
+            
+            // Back to home button
+            if (backToHomeBtn) {
+                backToHomeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    resultsPage.classList.add('hidden');
+                    homePage.classList.remove('hidden');
+                    youtubeIframe.src = '';
+                    urlInput.value = '';
+                    window.scrollTo(0, 0);
+                });
+            }
+        }
+        
+        // Tab switching
+        function initTabs() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and panes
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabPanes.forEach(pane => pane.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding pane
+                    button.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        }
+        
+        // Flashcards functionality
+        function initFlashcards() {
+            let currentFlashcardIndex = 0;
+            const flashcard = document.getElementById('flashcard');
+            const flashcardCounter = document.getElementById('flashcard-counter');
+            const prevFlashcardBtn = document.getElementById('prev-flashcard');
+            const nextFlashcardBtn = document.getElementById('next-flashcard');
+            const flipFlashcardBtn = document.getElementById('flip-flashcard');
+            const resetFlashcardBtn = document.getElementById('reset-flashcard');
+            
+            // Flashcards data
+            const flashcards = [
+                {
+                    question: "What is machine learning?",
+                    answer: "Machine learning is a subset of artificial intelligence that enables systems to learn and improve from experience without being explicitly programmed."
+                },
+                {
+                    question: "What is the difference between supervised and unsupervised learning?",
+                    answer: "Supervised learning uses labeled data to train models, while unsupervised learning works with unlabeled data to find patterns and relationships."
+                },
+                {
+                    question: "What is classification in machine learning?",
+                    answer: "Classification is a supervised learning technique where the model predicts discrete class labels or categories for new data points."
+                },
+                {
+                    question: "What is regression in machine learning?",
+                    answer: "Regression is a supervised learning technique where the model predicts continuous numerical values rather than discrete categories."
+                },
+                {
+                    question: "What is overfitting in machine learning?",
+                    answer: "Overfitting occurs when a model learns the training data too well, including its noise and outliers, resulting in poor performance on new, unseen data."
+                }
+            ];
+            
+            function updateFlashcard() {
+                const flashcardFront = document.querySelector('.flashcard-front p');
+                const flashcardBack = document.querySelector('.flashcard-back p');
+                
+                if (flashcardFront && flashcardBack) {
+                    flashcardFront.textContent = flashcards[currentFlashcardIndex].question;
+                    flashcardBack.textContent = flashcards[currentFlashcardIndex].answer;
+                    flashcardCounter.textContent = `Flashcard ${currentFlashcardIndex + 1} of ${flashcards.length}`;
+                    
+                    // Update button states
+                    prevFlashcardBtn.disabled = currentFlashcardIndex === 0;
+                    nextFlashcardBtn.disabled = currentFlashcardIndex === flashcards.length - 1;
+                }
+            }
+            
+            if (flipFlashcardBtn) {
+                flipFlashcardBtn.addEventListener('click', () => {
+                    flashcard.classList.toggle('flipped');
+                    flipFlashcardBtn.textContent = flashcard.classList.contains('flipped') ? 'Show Question' : 'Show Answer';
+                });
+            }
+            
+            if (prevFlashcardBtn) {
+                prevFlashcardBtn.addEventListener('click', () => {
+                    if (currentFlashcardIndex > 0) {
+                        currentFlashcardIndex--;
+                        updateFlashcard();
+                        flashcard.classList.remove('flipped');
+                        flipFlashcardBtn.textContent = 'Show Answer';
+                    }
+                });
+            }
+            
+            if (nextFlashcardBtn) {
+                nextFlashcardBtn.addEventListener('click', () => {
+                    if (currentFlashcardIndex < flashcards.length - 1) {
+                        currentFlashcardIndex++;
+                        updateFlashcard();
+                        flashcard.classList.remove('flipped');
+                        flipFlashcardBtn.textContent = 'Show Answer';
+                    }
+                });
+            }
+            
+            if (resetFlashcardBtn) {
+                resetFlashcardBtn.addEventListener('click', () => {
+                    currentFlashcardIndex = 0;
+                    updateFlashcard();
+                    flashcard.classList.remove('flipped');
+                    flipFlashcardBtn.textContent = 'Show Answer';
+                });
+            }
+            
+            // Initialize flashcard
+            if (flashcard) {
+                updateFlashcard();
+            }
+        }
+        
+        // MCQs functionality
+        function initMCQs() {
+            let currentQuestionIndex = 0;
+            let score = 0;
+            const questionText = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const currentQuestionEl = document.getElementById('current-question');
+            const scoreEl = document.getElementById('score');
+            const submitAnswerBtn = document.getElementById('submit-answer');
+            const nextQuestionBtn = document.getElementById('next-question');
+            
+            // MCQ data
+            const questions = [
+                {
+                    question: "Which of the following is NOT a type of machine learning?",
+                    options: [
+                        "Supervised Learning",
+                        "Unsupervised Learning",
+                        "Reinforcement Learning",
+                        "Deterministic Learning"
+                    ],
+                    correctAnswer: 3
+                },
+                {
+                    question: "What type of machine learning algorithm would be best for predicting house prices?",
+                    options: [
+                        "Classification",
+                        "Regression",
+                        "Clustering",
+                        "Dimensionality Reduction"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: "What is feature engineering in machine learning?",
+                    options: [
+                        "The process of creating new models",
+                        "The process of creating new algorithms",
+                        "The process of creating or selecting relevant features for model training",
+                        "The process of evaluating model performance"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    question: "What is the bias-variance tradeoff in machine learning?",
+                    options: [
+                        "A tradeoff between model complexity and training time",
+                        "A tradeoff between model simplicity and error due to bias versus error due to variance",
+                        "A tradeoff between the number of features and model accuracy",
+                        "A tradeoff between training data size and model performance"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: "Which of the following is an example of unsupervised learning?",
+                    options: [
+                        "Email spam detection",
+                        "House price prediction",
+                        "Customer segmentation",
+                        "Image classification"
+                    ],
+                    correctAnswer: 2
+                }
+            ];
+            
+            function updateQuestion() {
+                if (questionText && optionsContainer) {
+                    const currentQuestion = questions[currentQuestionIndex];
+                    questionText.textContent = currentQuestion.question;
+                    
+                    // Clear options
+                    optionsContainer.innerHTML = '';
+                    
+                    // Add options
+                    currentQuestion.options.forEach((option, index) => {
+                        const optionDiv = document.createElement('div');
+                        optionDiv.className = 'option';
+                        
+                        const input = document.createElement('input');
+                        input.type = 'radio';
+                        input.name = 'mcq';
+                        input.id = `option${index}`;
+                        input.value = index;
+                        
+                        const label = document.createElement('label');
+                        label.htmlFor = `option${index}`;
+                        label.textContent = option;
+                        
+                        optionDiv.appendChild(input);
+                        optionDiv.appendChild(label);
+                        optionsContainer.appendChild(optionDiv);
+                    });
+                    
+                    currentQuestionEl.textContent = currentQuestionIndex + 1;
+                }
+            }
+            
+            if (submitAnswerBtn) {
+                submitAnswerBtn.addEventListener('click', () => {
+                    const selectedOption = document.querySelector('input[name="mcq"]:checked');
+                    
+                    if (!selectedOption) {
+                        alert('Please select an answer');
+                        return;
+                    }
+                    
+                    const selectedValue = parseInt(selectedOption.value);
+                    const correctAnswer = questions[currentQuestionIndex].correctAnswer;
+                    
+                    // Disable all inputs
+                    document.querySelectorAll('input[name="mcq"]').forEach(input => {
+                        input.disabled = true;
+                    });
+                    
+                    // Mark correct and incorrect answers
+                    const options = document.querySelectorAll('.option');
+                    options[correctAnswer].classList.add('correct');
+                    
+                    if (selectedValue !== correctAnswer) {
+                        options[selectedValue].classList.add('incorrect');
+                    } else {
+                        score++;
+                        scoreEl.textContent = score;
+                    }
+                    
+                    // Show next button, hide submit button
+                    submitAnswerBtn.classList.add('hidden');
+                    nextQuestionBtn.classList.remove('hidden');
+                });
+            }
+            
+            if (nextQuestionBtn) {
+                nextQuestionBtn.addEventListener('click', () => {
+                    if (currentQuestionIndex < questions.length - 1) {
+                        currentQuestionIndex++;
+                        updateQuestion();
+                        
+                        // Show submit button, hide next button
+                        submitAnswerBtn.classList.remove('hidden');
+                        nextQuestionBtn.classList.add('hidden');
+                    } else {
+                        alert(`Quiz completed! Your score: ${score}/${questions.length}`);
+                    }
+                });
+            }
+            
+            // Initialize MCQ
+            if (questionText && optionsContainer) {
+                updateQuestion();
+            }
+        }
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createBackgroundPattern();
+            handleParallax();
+            setupIntersectionObserver();
+            handleHeaderScroll();
+            setupMobileMenu();
+            setupFormSubmission();
+        });
+    </script>
+</body>
+</html>
