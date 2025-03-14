@@ -2186,16 +2186,15 @@
                     <button class="mobile-menu-toggle" id="mobile-menu-toggle">
                         <i class="fa-solid fa-bars"></i>
                     </button>
-                    
+                    <nav class="nav">
+                        <button class="btn btn-primary">Sign In</button>
+                    </nav>
                 </div>
             </header>
             
             <div class="mobile-menu" id="mobile-menu">
                 <nav class="mobile-nav">
-                    <a href="#" class="mobile-nav-link">Home</a>
-                    <a href="#" class="mobile-nav-link">Features</a>
-                    <a href="#" class="mobile-nav-link">Pricing</a>
-                    
+                    <button class="btn btn-primary">Sign In</button>
                 </nav>
             </div>
 
@@ -2376,7 +2375,7 @@
                                         <div class="form-group">
                                             <div class="input-with-icon">
                                                 <i class="fa-brands fa-youtube input-icon"></i>
-                                                <input
+                                                <input 
                                                     type="url" 
                                                     id="youtube-url" 
                                                     placeholder="https://www.youtube.com/watch?v=..." 
@@ -2639,6 +2638,7 @@
                 const size = Math.random() * 5 + 2;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
+                
                 
                 // Random position
                 const posX = Math.random() * 100;
