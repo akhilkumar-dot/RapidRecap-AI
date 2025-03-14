@@ -89,13 +89,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-        }
-
-
-
         
         html {
             scroll-behavior: smooth;
@@ -453,7 +446,21 @@
             width: 100%;
         }
         
-
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-text);
+            font-size: 1.5rem;
+            z-index: 60;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
         
         .mobile-menu {
             position: fixed;
@@ -2176,11 +2183,21 @@
                         <i class="fa-solid fa-brain logo-icon"></i>
                         <span>RapidRecap AI</span>
                     </div>
-                    
+                    <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
                     
                 </div>
             </header>
             
+            <div class="mobile-menu" id="mobile-menu">
+                <nav class="mobile-nav">
+                    <a href="#" class="mobile-nav-link">Home</a>
+                    <a href="#" class="mobile-nav-link">Features</a>
+                    <a href="#" class="mobile-nav-link">Pricing</a>
+                    <button class="btn btn-primary">Sign In</button>
+                </nav>
+            </div>
 
             <main>
                 <section class="hero">
@@ -2359,7 +2376,7 @@
                                         <div class="form-group">
                                             <div class="input-with-icon">
                                                 <i class="fa-brands fa-youtube input-icon"></i>
-                                                <input 
+                                                <input
                                                     type="url" 
                                                     id="youtube-url" 
                                                     placeholder="https://www.youtube.com/watch?v=..." 
@@ -2623,7 +2640,6 @@
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
-                
                 // Random position
                 const posX = Math.random() * 100;
                 const posY = Math.random() * 100;
@@ -2741,7 +2757,26 @@
         }
         
         // Mobile menu toggle
-        
+        function setupMobileMenu() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                const isOpen = mobileMenu.classList.contains('active');
+                mobileMenuToggle.innerHTML = isOpen ? 
+                    '<i class="fa-solid fa-xmark"></i>' : 
+                    '<i class="fa-solid fa-bars"></i>';
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mobileMenu.contains(e.target) && !mobileMenuToggle.contains(e.target) && mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                }
+            });
+        }
         
         // Form submission
         function setupFormSubmission() {
